@@ -4,4 +4,4 @@
 
 Команды сборки:
 - **Linux**: `gcc -lcrypto check.c -o check`
-- **Windows**: `gcc -l:libcrypto.a -l:libiconv.a -lws2_32 -o check.exe`
+- **Windows**: `gcc check.c -l:libcrypto.a -l:libiconv.a -lws2_32 -lmsvcrt -lcrypt32 -o check.exe`
