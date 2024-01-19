@@ -1,0 +1,36 @@
+name: CI
+on: [push]
+jobs:
+  build-msys2-mingw64:
+    runs-on: windows-latest
+    defaults:
+      run:
+        shell: msys2 {0}
+    steps:
+      - uses: actions/checkout@v3
+      - uses: msys2/setup-msys2@v2
+        with:
+          msystem: MINGW64
+          update: true
+          install: git mingw-w64-x86_64-gcc mingw-w64-x86_64-libiconv mingw-w64-x86_64-openssl
+      - name: CI-Build
+        run: |
+          gcc -l:libcrypto.a -l:libiconv.a -lws2_32 -o check.exe
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.2.0
+        with:
+          name: ./check-win32-x86_64.exe
+          path: check.exe
+  build-linux:
+    runs-on: ubuntu-latest
+    steps:
+      - run: apt update
+      - run: apt install gcc openssl
+      - name: CI-Build
+        run: gcc -lcrypto check.c -o check
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4.2.0
+        with:
+          name: ./check
+          path: check-linux-x86_64.exe
+      
