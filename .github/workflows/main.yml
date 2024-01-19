@@ -15,7 +15,7 @@ jobs:
           install: git mingw-w64-x86_64-gcc mingw-w64-x86_64-libiconv mingw-w64-x86_64-openssl
       - name: CI-Build
         run: |
-          gcc -l:libcrypto.a -l:libiconv.a -lws2_32 -o check.exe
+          gcc -l:libcrypto.a -l:libiconv.a -lws2_32 -municode -o check.exe
       - name: Upload artifact
         uses: actions/upload-artifact@v4.2.0
         with:
@@ -24,8 +24,8 @@ jobs:
   build-linux:
     runs-on: ubuntu-latest
     steps:
-      - run: apt update
-      - run: apt install gcc openssl
+      - run: sudo apt update
+      - run: sudo apt install gcc openssl
       - name: CI-Build
         run: gcc -lcrypto check.c -o check
       - name: Upload artifact
