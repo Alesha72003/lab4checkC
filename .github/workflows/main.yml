@@ -17,7 +17,7 @@ jobs:
         run: |
           gcc check.c -lcrypto -liconv -o check.exe
       - run: ldd check.exe
-      - run: gcc check.c -l:libcrypto.a -l:libiconv.a -lws2_32 -lmsvcrt -o check.exe
+      - run: gcc check.c -l:libcrypto.a -l:libiconv.a -lws2_32 -lmsvcrt -lcrypt32 -o check.exe
       - name: Upload artifact
         uses: actions/upload-artifact@v4.2.0
         with:
