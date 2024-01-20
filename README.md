@@ -3,5 +3,5 @@
 Для сборки нужен openssl и iconv для Windows.
 
 Команды сборки:
-- **Linux**: `gcc -lcrypto check.c -o check`
+- **Linux**: `gcc check.c -lcrypto -o check`
 - **Windows**: `gcc check.c -l:libcrypto.a -l:libiconv.a -lws2_32 -lmsvcrt -lcrypt32 -o check.exe`
